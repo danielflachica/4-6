@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Be My Valentine? 💘</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+:root {
+  --pink: #ffffff;
+  --dark: #222;
+  --gradient-start: #ff6ec4;
+  --gradient-end: #7873f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  background-size: 400% 400%;
+  animation: gradientShift 5s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.screen {
+  display: none;
+  max-width: 420px;
+  width: 100%;
+}
+
+.screen.active {
+  display: block;
+  animation: fadeIn 0.6s ease;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+button {
+  padding: 12px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.btn-primary {
+  background: white;
+  color: #ff6ec4;
+}
+
+/* .btn-secondary {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+  position: relative;
+} */
+
+.btn-secondary {
+  background: #EF5350;
+  color: white;
+  border: none;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary:hover {
+  background: #E53935;
+}
+
+/* Polaroid */
+.polaroid {
+  background: white;
+  padding: 15px 15px 40px 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  transform: rotate(-2deg);
+  margin: 20px auto;
+  max-width: 250px;
+  color: #333;
+}
+
+.polaroid img {
+  width: 100%;
+  display: block;
+}
+
+.caption {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #ff6ec4;
+}
+
+.event-details {
+  background: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  padding: 15px;
+  margin-top: 25px;
+  margin-bottom: 2.5rem;
+  color: #333;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.event-details h2 {
+  margin-top: 8px;
+  color: #7873f5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 600px) {
+  h1 {
+    font-size: 2.4rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="screen active" id="screen1">
+  <h1>Hi, Dear 💌</h1>
+  <p>I have a very important question for you...</p>
+  <button class="btn-primary" onclick="nextScreen(2)">Open It ✨</button>
+</div>
+
+<div class="screen" id="screen2">
+  <h1>Will you be my Valentine? 💘</h1>
+  <div>
+    <button class="btn-primary" onclick="sayYes()">Yes 😍</button>
+    <button class="btn-secondary" id="noBtn">No 👿</button>
+  </div>
+</div>
+
+<div class="screen" id="screen3">
+  <h1>YAY!!! 💙🎉🥰</h1>
+  <p>Me so happy you said yes!!! <em style="margin-left: 14px;"><small>...Dapat lang</small></em></p>
+
+  <div class="polaroid">
+    <img src="us.jpg" alt="Us together">
+    <div class="caption">To more days like this 💞</div>
+  </div>
+
+  <div class="event-details">
+    <h2>Valentine's Dinner 🍽️</h2>
+    <p><strong>Date:</strong> February 13th</p>
+    <p><strong>Time:</strong> 8:00 PM</p>
+    <p><strong>Location:</strong> Mamou ATC</p>
+    <p><strong>With Samee?</strong> Yes pls 🐶</p>
+    <p><em>See you there</em> 😉</p>
+  </div>
+</div>
+
+<script>
+function nextScreen(number) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen' + number).classList.add('active');
+}
+
+function sayYes() {
+  nextScreen(3);
+  launchConfetti();
+}
+
+function launchConfetti() {
+  confetti({
+    particleCount: 180,
+    spread: 80,
+    origin: { y: 0.6 }
+  });
+}
+
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover", () => {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 200 - 100;
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+});
+</script>
+
+</body>
+</html>
